@@ -1,0 +1,18 @@
+formats:
+  default: '_symbol_'
+  default_u: '_symbol_ [_unit_]'
+  log: '$\log_{10}\,\left(_symbol_\right)$'
+  log_u: '$\log_{10}\,\left(_symbol_ / \left(_unit_\right)\right)$'
+
+labels:
+  z:
+    symbol: 'z'
+    description: 'Redshift'
+  sfr:
+    symbol: '\mathrm{SFR}'
+    unit: 'Msun / yr'
+    description: 'Star-formation rate'
+  xi_ion:
+    symbol: '\xi_{ion}'
+    unit: 'Hz / erg'
+    description: 'Ionizing photon production efficiency'
