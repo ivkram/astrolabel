@@ -254,6 +254,17 @@ webencodings = "*"
 css = ["tinycss2 (>=1.1.0,<1.2)"]
 
 [[package]]
+name = "cachetools"
+version = "5.3.1"
+description = "Extensible memoizing collections and decorators"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "cachetools-5.3.1-py3-none-any.whl", hash = "sha256:95ef631eeaea14ba2e36f06437f36463aac3a096799e876ee55e5cdccb102590"},
+    {file = "cachetools-5.3.1.tar.gz", hash = "sha256:dce83f2d9b4e1f732a8cd44af8e8fab2dbe46201467fc98b3ef8f269092bf62b"},
+]
+
+[[package]]
 name = "certifi"
 version = "2023.7.22"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -339,6 +350,17 @@ files = [
 
 [package.dependencies]
 pycparser = "*"
+
+[[package]]
+name = "chardet"
+version = "5.1.0"
+description = "Universal encoding detector for Python 3"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "chardet-5.1.0-py3-none-any.whl", hash = "sha256:362777fb014af596ad31334fde1e8c327dfdb076e1960d1694662d46a6917ab9"},
+    {file = "chardet-5.1.0.tar.gz", hash = "sha256:0d62712b956bc154f85fb0a266e2a3c5913c2967e00348701b32411d6def31e5"},
+]
 
 [[package]]
 name = "charset-normalizer"
@@ -586,6 +608,17 @@ files = [
 ]
 
 [[package]]
+name = "distlib"
+version = "0.3.7"
+description = "Distribution utilities"
+optional = false
+python-versions = "*"
+files = [
+    {file = "distlib-0.3.7-py2.py3-none-any.whl", hash = "sha256:2e24928bc811348f0feb63014e97aaae3037f2cf48712d51ae61df7fd6075057"},
+    {file = "distlib-0.3.7.tar.gz", hash = "sha256:9dafe54b34a028eafd95039d5e5d4851a13734540f1331060d31c9916e7147a8"},
+]
+
+[[package]]
 name = "exceptiongroup"
 version = "1.1.2"
 description = "Backport of PEP 654 (exception groups)"
@@ -626,6 +659,21 @@ files = [
 
 [package.extras]
 devel = ["colorama", "json-spec", "jsonschema", "pylint", "pytest", "pytest-benchmark", "pytest-cache", "validictory"]
+
+[[package]]
+name = "filelock"
+version = "3.12.2"
+description = "A platform independent file lock."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "filelock-3.12.2-py3-none-any.whl", hash = "sha256:cbb791cdea2a72f23da6ac5b5269ab0a0d161e9ef0100e653b69049a7706d1ec"},
+    {file = "filelock-3.12.2.tar.gz", hash = "sha256:002740518d8aa59a26b0c76e10fb8c6e15eae825d34b6fdf670333fd7b938d81"},
+]
+
+[package.extras]
+docs = ["furo (>=2023.5.20)", "sphinx (>=7.0.1)", "sphinx-autodoc-typehints (>=1.23,!=1.23.4)"]
+testing = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "diff-cover (>=7.5)", "pytest (>=7.3.1)", "pytest-cov (>=4.1)", "pytest-mock (>=3.10)", "pytest-timeout (>=2.1)"]
 
 [[package]]
 name = "fonttools"
@@ -1842,6 +1890,25 @@ files = [
 diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
+name = "pyproject-api"
+version = "1.5.3"
+description = "API to interact with the python pyproject.toml based projects"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pyproject_api-1.5.3-py3-none-any.whl", hash = "sha256:14cf09828670c7b08842249c1f28c8ee6581b872e893f81b62d5465bec41502f"},
+    {file = "pyproject_api-1.5.3.tar.gz", hash = "sha256:ffb5b2d7cad43f5b2688ab490de7c4d3f6f15e0b819cb588c4b771567c9729eb"},
+]
+
+[package.dependencies]
+packaging = ">=23.1"
+tomli = {version = ">=2.0.1", markers = "python_version < \"3.11\""}
+
+[package.extras]
+docs = ["furo (>=2023.5.20)", "sphinx (>=7.0.1)", "sphinx-autodoc-typehints (>=1.23,!=1.23.4)"]
+testing = ["covdefaults (>=2.3)", "importlib-metadata (>=6.6)", "pytest (>=7.3.1)", "pytest-cov (>=4.1)", "pytest-mock (>=3.10)", "setuptools (>=67.8)", "wheel (>=0.40)"]
+
+[[package]]
 name = "pytest"
 version = "7.4.0"
 description = "pytest: simple powerful testing with Python"
@@ -2368,6 +2435,33 @@ files = [
 ]
 
 [[package]]
+name = "tox"
+version = "4.6.4"
+description = "tox is a generic virtualenv management and test command line tool"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "tox-4.6.4-py3-none-any.whl", hash = "sha256:1b8f8ae08d6a5475cad9d508236c51ea060620126fd7c3c513d0f5c7f29cc776"},
+    {file = "tox-4.6.4.tar.gz", hash = "sha256:5e2ad8845764706170d3dcaac171704513cc8a725655219acb62fe4380bdadda"},
+]
+
+[package.dependencies]
+cachetools = ">=5.3.1"
+chardet = ">=5.1"
+colorama = ">=0.4.6"
+filelock = ">=3.12.2"
+packaging = ">=23.1"
+platformdirs = ">=3.8"
+pluggy = ">=1.2"
+pyproject-api = ">=1.5.2"
+tomli = {version = ">=2.0.1", markers = "python_version < \"3.11\""}
+virtualenv = ">=20.23.1"
+
+[package.extras]
+docs = ["furo (>=2023.5.20)", "sphinx (>=7.0.1)", "sphinx-argparse-cli (>=1.11.1)", "sphinx-autodoc-typehints (>=1.23.3,!=1.23.4)", "sphinx-copybutton (>=0.5.2)", "sphinx-inline-tabs (>=2023.4.21)", "sphinxcontrib-towncrier (>=0.2.1a0)", "towncrier (>=23.6)"]
+testing = ["build[virtualenv] (>=0.10)", "covdefaults (>=2.3)", "detect-test-pollution (>=1.1.1)", "devpi-process (>=0.3.1)", "diff-cover (>=7.6)", "distlib (>=0.3.6)", "flaky (>=3.7)", "hatch-vcs (>=0.3)", "hatchling (>=1.17.1)", "psutil (>=5.9.5)", "pytest (>=7.4)", "pytest-cov (>=4.1)", "pytest-mock (>=3.11.1)", "pytest-xdist (>=3.3.1)", "re-assert (>=1.1)", "time-machine (>=2.10)", "wheel (>=0.40)"]
+
+[[package]]
 name = "traitlets"
 version = "5.9.0"
 description = "Traitlets Python configuration system"
@@ -2425,6 +2519,26 @@ socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
+name = "virtualenv"
+version = "20.24.2"
+description = "Virtual Python Environment builder"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "virtualenv-20.24.2-py3-none-any.whl", hash = "sha256:43a3052be36080548bdee0b42919c88072037d50d56c28bd3f853cbe92b953ff"},
+    {file = "virtualenv-20.24.2.tar.gz", hash = "sha256:fd8a78f46f6b99a67b7ec5cf73f92357891a7b3a40fd97637c27f854aae3b9e0"},
+]
+
+[package.dependencies]
+distlib = ">=0.3.7,<1"
+filelock = ">=3.12.2,<4"
+platformdirs = ">=3.9.1,<4"
+
+[package.extras]
+docs = ["furo (>=2023.5.20)", "proselint (>=0.13)", "sphinx (>=7.0.1)", "sphinx-argparse (>=0.4)", "sphinxcontrib-towncrier (>=0.2.1a0)", "towncrier (>=23.6)"]
+test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess (>=1)", "flaky (>=3.7)", "packaging (>=23.1)", "pytest (>=7.4)", "pytest-env (>=0.8.2)", "pytest-freezer (>=0.4.8)", "pytest-mock (>=3.11.1)", "pytest-randomly (>=3.12)", "pytest-timeout (>=2.1)", "setuptools (>=68)", "time-machine (>=2.10)"]
+
+[[package]]
 name = "wcwidth"
 version = "0.2.6"
 description = "Measures the displayed width of unicode strings in a terminal"
@@ -2480,4 +2594,4 @@ test = ["websockets"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "295077a12dbdd6dde56f1a29bca421bcdd4a622ecedaab3c13c061e5f7354661"
+content-hash = "99cd2a39c8a59efa9740f39269a009d834e1e16fa46d6de9fe89d57351c5a427"

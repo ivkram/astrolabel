@@ -4,22 +4,23 @@ import yaml
 
 from dataclasses import dataclass
 import pathlib
+from typing import Union, Dict
 
 
 @dataclass
 class Label:
     symbol: str
-    unit: str | None
-    description: str | None
+    unit: Union[str, None]
+    description: Union[str, None]
 
 
 @dataclass
 class AstroLabels:
-    formats: dict[str, str]
-    labels: dict[str, Label]
+    formats: Dict[str, str]
+    labels: Dict[str, Label]
 
     @classmethod
-    def read(cls, filename: str | None = None):
+    def read(cls, filename: Union[str, None] = None):
         if filename is None:
             filename = pathlib.Path(__file__).parent / 'data' / 'astrolabel.yml'
 
