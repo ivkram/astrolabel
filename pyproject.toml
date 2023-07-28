@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "astrolabel"
 version = "0.1.0"
-description = ""
+description = "A lightweight Python package for managing astronomy plot labels"
 authors = ["Ivan Kramarenko <im.kramarenko@gmail.com>"]
 license = "MIT"
 readme = "README.md"
@@ -14,6 +14,7 @@ dacite = ">=1.8.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
 tox = "^4.6.4"
 
 [tool.poetry.group.examples.dependencies]
