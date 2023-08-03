@@ -1,8 +1,6 @@
-from astrolabel import AstroLabels
-from astrolabel.main import DEFAULT_LIBRARY_PATH
+from astrolabel import AstroLabels, DEFAULT_LIBRARY_PATH
 import pytest
 
-import os
 import shutil
 
 
