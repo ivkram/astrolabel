@@ -1,10 +1,15 @@
-from astrolabel import AstroLabels, DEFAULT_LIBRARY_PATH
+from astrolabel import AstroLabels, Label, DEFAULT_LIBRARY_PATH
 import pytest
 
 import shutil
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(autouse=True)
+def set_env(monkeypatch):
+    monkeypatch.delenv("ASTROLABEL", raising=False)
+
+
+@pytest.fixture
 def al() -> AstroLabels:
     al = AstroLabels.read()
     assert al.library_fname() == DEFAULT_LIBRARY_PATH
@@ -18,6 +23,15 @@ def tmp_library_path(tmp_path):
     shutil.copy(DEFAULT_LIBRARY_PATH, library_path)
 
     return library_path
+
+
+def test_info(capsys):
+    al = AstroLabels(formats={}, labels={'z': Label(symbol='z', description='Redshift'),
+                                         'fesc': Label(symbol='f_{\\text{esc}}', description='Escape fraction')})
+    al.info()
+
+    captured = capsys.readouterr()
+    assert captured.out == "   z: Redshift\nfesc: Escape fraction\n"
 
 
 def test_read_from_file(tmp_library_path):
@@ -41,7 +55,7 @@ def test_read_from_workdir(tmp_library_path, monkeypatch):
 
 
 def test_read_not_found():
-    with pytest.raises(FileNotFoundError, match="The file \".*\" does not exist"):
+    with pytest.raises(FileNotFoundError, match="File \".*\" does not exist"):
         AstroLabels.read("non_existing_file.yml")
 
 

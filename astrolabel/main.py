@@ -5,6 +5,7 @@ import yaml
 from dataclasses import dataclass
 import os
 import pathlib
+import sys
 from typing import Union, Dict
 
 
@@ -14,8 +15,8 @@ DEFAULT_LIBRARY_PATH = pathlib.Path(__file__).parent / 'data' / 'astrolabel.yml'
 @dataclass
 class Label:
     symbol: str
-    unit: Union[str, None]
-    description: Union[str, None]
+    unit: Union[str, None] = None
+    description: Union[str, None] = None
 
 
 @dataclass
@@ -28,6 +29,19 @@ class AstroLabels:
 
     def library_fname(self):
         return self._library_path
+
+    def info(self, output=None):
+        if output is None:
+            output = sys.stdout
+
+        library_summary = []
+        max_key_len = max(map(len, self.labels.keys()))
+        for label_key, label_data in self.labels.items():
+            library_summary.append(f'{label_key:>{max_key_len}}: {label_data.description}')
+
+        output.write("\n".join(library_summary))
+        output.write("\n")
+        output.flush()
 
     @staticmethod
     def _get_library_path() -> pathlib.Path:
@@ -49,7 +63,7 @@ class AstroLabels:
 
         library_path = library_path.resolve()
         if not library_path.is_file():
-            raise FileNotFoundError(f"The file \"{library_path}\" does not exist")
+            raise FileNotFoundError(f"File \"{library_path}\" does not exist")
 
         with open(library_path, "r") as label_library:
             label_data = yaml.safe_load(label_library)

@@ -26,7 +26,13 @@ Create an `AstroLabels` object:
 Get a label by its key:
 
 ```python
->>> al.get_label('sfr')  # Output: '$\\mathrm{SFR}$ [$\\mathrm{M_{\\odot}\\,yr^{-1}}$]'
+>>> al.get_label('sfr')  # output: '$\\mathrm{SFR}$ [$\\mathrm{M_{\\odot}\\,yr^{-1}}$]'
+```
+
+Get the list of available labels:
+
+```python
+>>> al.info()  # prints the list of available labels to the console
 ```
 
 ## Label Library
@@ -58,7 +64,7 @@ log_u: '$\log_{10}\,_symbol_ / _unit_$'
 To apply a custom format to the label, pass the `fmt` argument to `get_label()`:
 
 ```python
->>> al.get_label('sfr', fmt='log')  # Output: '$\\log_{10}\\,(\\mathrm{SFR} / (\\mathrm{M_{\\odot}\\,yr^{-1}}))$'
+>>> al.get_label('sfr', fmt='log')  # output: '$\\log_{10}\\,(\\mathrm{SFR} / (\\mathrm{M_{\\odot}\\,yr^{-1}}))$'
 ```
 
 The `labels` section of the label library contains the list of custom plot labels, each of which has the following attributes:
@@ -86,7 +92,7 @@ In case no arguments are passed to the constructor, Astrolabel looks for the lab
 To check the location of the currently active library, use the `library_fname()` method of the `AstroLabels` object:
 
 ```python
->>> al.library_fname()  # Output: '/home/foo/.../bar/astrolabel.yml'
+>>> al.library_fname()  # output: PosixPath('/home/foo/.../bar/astrolabel.yml')
 ```
 
 
@@ -96,5 +102,5 @@ The location of the default label library is stored in the `DEFAULT_LIBRARY_PATH
 
 ```python
 >>> from astrolabel import DEFAULT_LIBRARY_PATH
->>> DEFAULT_LIBRARY_PATH  # Output: '/home/foo/.../astrolabel/astrolabel/data/astrolabel.yml'
+>>> DEFAULT_LIBRARY_PATH  # output: '/home/foo/.../astrolabel/astrolabel/data/astrolabel.yml'
 ```

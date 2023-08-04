@@ -1,1 +1,1 @@
-from .main import AstroLabels, DEFAULT_LIBRARY_PATH
+from .main import AstroLabels, Label, DEFAULT_LIBRARY_PATH
