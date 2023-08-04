@@ -51,8 +51,8 @@ The `formats` sections contains the list of custom template strings used by the 
 
 Here is a more advanced example of template strings which can be used to create labels for plots with logarithmic axes:
 ```yaml
-  log: '$\log_{10}\,_symbol_$'
-  log_u: '$\log_{10}\,_symbol_ / _unit_$'
+log: '$\log_{10}\,_symbol_$'
+log_u: '$\log_{10}\,_symbol_ / _unit_$'
 ```
 
 To apply a custom format to the label, pass the `fmt` argument to `get_label()`:
