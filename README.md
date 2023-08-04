@@ -19,14 +19,14 @@ $ pip install astrolabel
 Create an `AstroLabels` object:
 
 ```python
-from astrolabel import AstroLabels
-al = AstroLabels.read()
+>>> from astrolabel import AstroLabels
+>>> al = AstroLabels.read()
 ```
 
 Get a label by its key:
 
 ```python
-al.get_label('sfr')  # Output: '$\\mathrm{SFR}$ [$\\mathrm{M_{\\odot}\\,yr^{-1}}$]'
+>>> al.get_label('sfr')  # Output: '$\\mathrm{SFR}$ [$\\mathrm{M_{\\odot}\\,yr^{-1}}$]'
 ```
 
 ## Label Library
@@ -58,7 +58,7 @@ Here is a more advanced example of template strings which can be used to create 
 To apply a custom format to the label, pass the `fmt` argument to `get_label()`:
 
 ```python
-al.get_label('sfr', fmt='log')  # Output: '$\\log_{10}\\,(\\mathrm{SFR} / (\\mathrm{M_{\\odot}\\,yr^{-1}}))$'
+>>> al.get_label('sfr', fmt='log')  # Output: '$\\log_{10}\\,(\\mathrm{SFR} / (\\mathrm{M_{\\odot}\\,yr^{-1}}))$'
 ```
 
 The `labels` section of the label library contains the list of custom plot labels, each of which has the following attributes:
@@ -74,7 +74,7 @@ The `labels` section of the label library contains the list of custom plot label
 The path to the label library can be passed to the `AstroLabels` constructor:
 
 ```python
-al = AstroLabels.read('/path/to/label/library.yml')
+>>> al = AstroLabels.read('/path/to/label/library.yml')
 ```
 
 In case no arguments are passed to the constructor, Astrolabel looks for the label library in three locations, in the following order:
@@ -86,7 +86,7 @@ In case no arguments are passed to the constructor, Astrolabel looks for the lab
 To check the location of the currently active library, use the `library_fname()` method of the `AstroLabels` object:
 
 ```python
-al.library_fname()  # Output: '/home/foo/.../bar/astrolabel.yml'
+>>> al.library_fname()  # Output: '/home/foo/.../bar/astrolabel.yml'
 ```
 
 
@@ -95,6 +95,6 @@ al.library_fname()  # Output: '/home/foo/.../bar/astrolabel.yml'
 The location of the default label library is stored in the `DEFAULT_LIBRARY_PATH` constant:
 
 ```python
-from astrolabel import DEFAULT_LIBRARY_PATH
-DEFAULT_LIBRARY_PATH  # Output: '/home/foo/.../astrolabel/astrolabel/data/astrolabel.yml'
+>>> from astrolabel import DEFAULT_LIBRARY_PATH
+>>> DEFAULT_LIBRARY_PATH  # Output: '/home/foo/.../astrolabel/astrolabel/data/astrolabel.yml'
 ```
