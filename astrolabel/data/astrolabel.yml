@@ -5,6 +5,7 @@ formats:
   log_u: '$\log_{10}\,\left(_symbol_ / _unit_\right)$'
 
 labels:
+
   ########## Physical properties of galaxies ##########
   mstar:
     symbol: '\mathrm{M}_\bigstar'
@@ -40,13 +41,17 @@ labels:
     symbol: '\mathrm{E(B-V)}'
     description: 'Color excess'
 
-  ########## Galaxy evolution ##########
+  ################# Galaxy evolution ##################
+  smf:
+    symbol: '\Phi'
+    unit: 'Mpc-3 dex-1'
+    description: 'Stellar mass function'
   sfrd:
     symbol: '\mathrm{SFRD}'
     unit: 'Msun yr-1 Mpc-3'
     description: 'Star-formation rate density'
 
-  ########## Spectroscopy ##########
+  ################### Spectroscopy ####################
   wave:
     symbol: '\lambda'
     unit: 'AA'
