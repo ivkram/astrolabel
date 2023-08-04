@@ -47,33 +47,48 @@ labels:
     description: 'Star-formation rate'  # optional
 ```
 
-The `formats` sections contains the list of template strings used by the `get_label()` method to format the label. When this method is called, `_symbol_` in the template string is replaced with the `symbol` attribute of the label, and `_unit_` is replaced with the `unit` attribute of the label.  Note that all template strings must come in two variants: one for labels with a unit, and another one for labels without a unit. The name of the template string where units are used must end with `_u` (e.g., `my_format_u`).
+The `formats` sections contains the list of custom template strings used by the `get_label()` method to format the label. When this method is called, the template string is modified as follows: `_symbol_` is replaced with the `symbol` attribute of the label, and `_unit_` is replaced with the `unit` attribute of the label.  Note that all template strings must come in two variants: one for labels with a unit, and another one for labels without a unit. The name of the template string where units are used must end with `_u` (e.g., `my_format_u`).
 
-Here is a more advanced example of template strings which can be used to create labels with logarithms:
+Here is a more advanced example of template strings which can be used to create labels for plots with logarithmic axes:
 ```yaml
   log: '$\log_{10}\,_symbol_$'
   log_u: '$\log_{10}\,_symbol_ / _unit_$'
 ```
 
-To apply a custom label format to the label, specify the `fmt` argument of `get_label()`:
+To apply a custom format to the label, pass the `fmt` argument to `get_label()`:
 
 ```python
 al.get_label('sfr', fmt='log')  # Output: '$\\log_{10}\\,(\\mathrm{SFR} / (\\mathrm{M_{\\odot}\\,yr^{-1}}))$'
 ```
 
-Next, the `labels` section contains the list of plot labels, each of which has the following attributes:
+The `labels` section of the label library contains the list of custom plot labels, each of which has the following attributes:
 
 - `symbol`: the symbol representing the plotted parameter. Note that math mode is applied to all symbols by default. Therefore, use `\mathrm{}` in cases where the upright letter notation is preferable (e.g., `\mathrm{SFR}`);
-- **\[optional\]** `unit`: the plotted parameter's unit of measurement. All units are converted to the LaTeX format using the Astropy's [`Quantity.to_string()`](https://docs.astropy.org/en/stable/api/astropy.units.Quantity.html#astropy.units.Quantity.to_string) method. The list of units supported by Astropy and thus by Astrolabel can be found in Astropy's official documentation [here](https://docs.astropy.org/en/stable/units/index.html). This list covers most (if not all) units used in astronomy. However, if you want to define new units, follow the instructions on [this page](https://docs.astropy.org/en/stable/units/combining_and_defining.html#defining-units);
+- **\[optional\]** `unit`: the plotted parameter's unit of measurement. All units are converted to the LaTeX format using the Astropy's [`Quantity.to_string()`](https://docs.astropy.org/en/stable/api/astropy.units.Quantity.html#astropy.units.Quantity.to_string) method. The list of units supported by Astropy and hence by Astrolabel can be found in Astropy's official documentation [here](https://docs.astropy.org/en/stable/units/index.html). This list covers most (if not all) units used in astronomy. However, if you want to define new units, follow the instructions on [this page](https://docs.astropy.org/en/stable/units/combining_and_defining.html#defining-units);
 - **\[optional\]** `description`: the text description of the plotted parameter.
 
-**Note:** due to the specifics of YAML, it is highly recommended to use single quotes (`'`) when adding new labels or custom label formats to the label library.
+**Note:** due to the specifics of YAML, it is highly recommended to use single quotes (`'`) when adding new labels or label formats to the label library.
 
 ### Loading a library from a file
 
+The path to the label library can be passed to the `AstroLabels` constructor:
+
 ```python
-al = AstroLabels.read("---the full path to the label library goes here---")
+al = AstroLabels.read('/path/to/label/library.yml')
 ```
+
+In case no arguments are passed to the constructor, Astrolabel looks for the label library in three locations, in the following order:
+
+1. `astrolabel.yml` in the current working directory.
+2. `$ASTROLABEL` - the best options for users who want to use the same library across different projects.
+3. The location of the default library (see below). Note that the default library will be overwritten each time you reinstall or update the package. 
+
+To check the location of the currently active library, use the `library_fname()` method of the `AstroLabels` object:
+
+```python
+al.library_fname()  # Output: '/home/foo/.../bar/astrolabel.yml'
+```
+
 
 ### The default library
 
@@ -81,5 +96,5 @@ The location of the default label library is stored in the `DEFAULT_LIBRARY_PATH
 
 ```python
 from astrolabel import DEFAULT_LIBRARY_PATH
-print(DEFAULT_LIBRARY_PATH)  # Output: '/home/foo/.../astrolabel/astrolabel/data/astrolabel.yml'
+DEFAULT_LIBRARY_PATH  # Output: '/home/foo/.../astrolabel/astrolabel/data/astrolabel.yml'
 ```
