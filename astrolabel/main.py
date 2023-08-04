@@ -13,16 +13,16 @@ DEFAULT_LIBRARY_PATH = pathlib.Path(__file__).parent / 'data' / 'astrolabel.yml'
 
 
 @dataclass
-class Label:
+class AstroLabel:
     symbol: str
     unit: Union[str, None] = None
     description: Union[str, None] = None
 
 
 @dataclass
-class AstroLabels:
+class LabelLibrary:
     formats: Dict[str, str]
-    labels: Dict[str, Label]
+    labels: Dict[str, AstroLabel]
 
     def __post_init__(self):
         self._library_path: pathlib.Path | None = None
@@ -68,13 +68,13 @@ class AstroLabels:
         with open(library_path, "r") as label_library:
             label_data = yaml.safe_load(label_library)
 
-        # create the AstroLabels object
-        al = dacite.from_dict(data_class=cls, data=label_data, config=dacite.Config(strict=True))
+        # create the LabelLibrary object
+        ll = dacite.from_dict(data_class=cls, data=label_data, config=dacite.Config(strict=True))
 
         # store the path to the label library
-        al._library_path = library_path
+        ll._library_path = library_path
 
-        return al
+        return ll
 
     @staticmethod
     def _replace(label, key, value):

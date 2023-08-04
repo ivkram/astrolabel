@@ -16,23 +16,23 @@ $ pip install astrolabel
 
 ## Quick Start
 
-Create an `AstroLabels` object:
+Create a `LabelLibrary` object:
 
 ```python
->>> from astrolabel import AstroLabels
->>> al = AstroLabels.read()
+>>> from astrolabel import LabelLibrary
+>>> ll = LabelLibrary.read()
 ```
 
 Get a label by its key:
 
 ```python
->>> al.get_label('sfr')  # output: '$\\mathrm{SFR}$ [$\\mathrm{M_{\\odot}\\,yr^{-1}}$]'
+>>> ll.get_label('sfr')  # output: '$\\mathrm{SFR}$ [$\\mathrm{M_{\\odot}\\,yr^{-1}}$]'
 ```
 
 Get the list of available labels:
 
 ```python
->>> al.info()  # prints the list of available labels to the console
+>>> ll.info()  # prints the list of available labels to the console
 ```
 
 ## Label Library
@@ -77,10 +77,10 @@ The `labels` section of the label library contains the list of custom plot label
 
 ### Loading a library from a file
 
-The path to the label library can be passed to the `AstroLabels` constructor:
+The path to the label library can be passed to the `LabelLibrary` constructor:
 
 ```python
->>> al = AstroLabels.read('/path/to/label/library.yml')
+>>> ll = LabelLibrary.read('/path/to/label/library.yml')
 ```
 
 In case no arguments are passed to the constructor, Astrolabel looks for the label library in three locations, in the following order:
@@ -89,10 +89,10 @@ In case no arguments are passed to the constructor, Astrolabel looks for the lab
 2. `$ASTROLABEL` - the best options for users who want to use the same library across different projects.
 3. The location of the default library (see below). Note that the default library will be overwritten each time you reinstall or update the package. 
 
-To check the location of the currently active library, use the `library_fname()` method of the `AstroLabels` object:
+To check the location of the currently active library, use the `library_fname()` method of the `LabelLibrary` object:
 
 ```python
->>> al.library_fname()  # output: PosixPath('/home/foo/.../bar/astrolabel.yml')
+>>> ll.library_fname()  # output: PosixPath('/home/foo/.../bar/astrolabel.yml')
 ```
 
 
