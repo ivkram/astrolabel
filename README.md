@@ -69,7 +69,7 @@ log_u: '$\log_{10}\,\left(__symbol__ / __unit__\right)$'
 The `labels` section of the label library contains the list of custom plot labels, each of which has the following attributes:
 
 - `symbol`: the symbol representing the plotted parameter. Note that math mode is applied to all symbols by default. Therefore, use `\mathrm{}` in cases where the upright letter notation is preferable (e.g., `\mathrm{SFR}`);
-- **\[optional\]** `unit`: the plotted parameter's unit of measurement. All units are converted to the LaTeX format using the Astropy's [`Quantity.to_string()`](https://docs.astropy.org/en/stable/api/astropy.units.Quantity.html#astropy.units.Quantity.to_string) method. The list of units supported by Astropy and hence by Astrolabel can be found in Astropy's official documentation [here](https://docs.astropy.org/en/stable/units/index.html). This list covers most (if not all) units used in astronomy. However, if you want to define new units, follow the instructions on [this page](https://docs.astropy.org/en/stable/units/combining_and_defining.html#defining-units);
+- **\[optional\]** `unit`: the plotted parameter's unit of measurement. All units are converted to the LaTeX format using the Astropy's [`Quantity.to_string()` method](https://docs.astropy.org/en/stable/api/astropy.units.Quantity.html#astropy.units.Quantity.to_string). The list of units supported by Astropy and hence by Astrolabel can be found in the Astropy's official documentation [here](https://docs.astropy.org/en/stable/units/index.html). This list covers most (if not all) units used in astronomy. However, if you want to define new units, follow the instructions on [this page](https://docs.astropy.org/en/stable/units/combining_and_defining.html#defining-units);
 - **\[optional\]** `description`: the text description of the plotted parameter.
 
 **Note:** due to the specifics of YAML, it is highly recommended to use single quotes (`'`) when adding new labels or label formats to the label library.
@@ -97,7 +97,7 @@ To check the location of the currently active library, call the `library_fname()
 
 ### The default library
 
-The Astrolabel package comes with the label library which includes two label formats (`default` and `log`) and some labels commonly used for astronomy plots. The location of the default label library is stored in the `DEFAULT_LIBRARY_PATH` constant:
+The Astrolabel package comes with a label library which includes two label formats (`default` and `log`) and some labels commonly used for astronomy plots. The location of the default label library is stored in the `DEFAULT_LIBRARY_PATH` constant:
 
 ```python
 >>> from astrolabel import DEFAULT_LIBRARY_PATH
