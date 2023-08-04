@@ -29,7 +29,12 @@ Get a label by its key:
 >>> ll.get_label('sfr')  # output: '$\\mathrm{SFR}$ [$\\mathrm{M_{\\odot}\\,yr^{-1}}$]'
 ```
 
-Get the list of available labels:
+Change the label format:
+```python
+>>> ll.get_label('sfr', fmt='log')  # output: '$\\log_{10}\\,\\left(\\mathrm{SFR} / \\mathrm{M_{\\odot}\\,yr^{-1}}\\right)$'
+```
+
+Print the list of available labels:
 
 ```python
 >>> ll.info()  # prints the list of available labels to the console
@@ -49,7 +54,7 @@ formats:
 labels:
   sfr:
     symbol: '\mathrm{SFR}'
-    unit: 'Msun / yr'                   # optional
+    unit: 'Msun yr-1'                   # optional
     description: 'Star-formation rate'  # optional
 ```
 
@@ -58,13 +63,7 @@ The `formats` sections contains the list of custom template strings used by the 
 Here is a more advanced example of template strings which can be used to create labels for plots with logarithmic axes:
 ```yaml
 log: '$\log_{10}\,__symbol__$'
-log_u: '$\log_{10}\,__symbol__ / __unit__$'
-```
-
-To apply a custom format to the label, pass the `fmt` argument to `get_label()`:
-
-```python
->>> al.get_label('sfr', fmt='log')  # output: '$\\log_{10}\\,(\\mathrm{SFR} / (\\mathrm{M_{\\odot}\\,yr^{-1}}))$'
+log_u: '$\log_{10}\,\left(__symbol__ / __unit__\right)$'
 ```
 
 The `labels` section of the label library contains the list of custom plot labels, each of which has the following attributes:
@@ -75,7 +74,7 @@ The `labels` section of the label library contains the list of custom plot label
 
 **Note:** due to the specifics of YAML, it is highly recommended to use single quotes (`'`) when adding new labels or label formats to the label library.
 
-### Loading a library from a file
+### Specifying the library location
 
 The path to the label library can be passed to the `LabelLibrary` constructor:
 
@@ -86,10 +85,10 @@ The path to the label library can be passed to the `LabelLibrary` constructor:
 In case no arguments are passed to the constructor, Astrolabel looks for the label library in three locations, in the following order:
 
 1. `astrolabel.yml` in the current working directory.
-2. `$ASTROLABEL` - the best options for users who want to use the same library across different projects.
-3. The location of the default library (see below). Note that the default library will be overwritten each time you reinstall or update the package. 
+2. `$ASTROLABEL` - the best option for users who want to use the same library across different projects.
+3. The default library location (see below). Note that the default library will be overwritten each time you reinstall or update the package. 
 
-To check the location of the currently active library, use the `library_fname()` method of the `LabelLibrary` object:
+To check the location of the currently active library, call the `library_fname()` method of the `LabelLibrary` object:
 
 ```python
 >>> ll.library_fname()  # output: PosixPath('/home/foo/.../bar/astrolabel.yml')
@@ -98,7 +97,7 @@ To check the location of the currently active library, use the `library_fname()`
 
 ### The default library
 
-The location of the default label library is stored in the `DEFAULT_LIBRARY_PATH` constant:
+The Astrolabel package comes with the label library which includes two label formats (`default` and `log`) and some labels commonly used for astronomy plots. The location of the default label library is stored in the `DEFAULT_LIBRARY_PATH` constant:
 
 ```python
 >>> from astrolabel import DEFAULT_LIBRARY_PATH
