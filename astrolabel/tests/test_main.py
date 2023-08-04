@@ -68,9 +68,9 @@ def test_with_unit(ll):
 
 
 def test_log_without_unit(ll):
-    assert ll.get_label('z', fmt='log') == r'$\log_{10}\,\left(z\right)$'
+    assert ll.get_label('z', fmt='log') == r'$\log_{10}\,z$'
 
 
 def test_log_with_unit(ll):
-    assert ll.get_label('sfr', fmt='log') == (r'$\log_{10}\,\left(\mathrm{SFR} / \left(\mathrm{M_{\odot}\,'
-                                              r'yr^{-1}}\right)\right)$')
+    assert ll.get_label('sfr', fmt='log') == (r'$\log_{10}\,\left(\mathrm{SFR} / \mathrm{M_{\odot}\,'
+                                              r'yr^{-1}}\right)$')
