@@ -1,8 +1,8 @@
 formats:
-  default: '_symbol_'
-  default_u: '_symbol_ [_unit_]'
-  log: '$\log_{10}\,_symbol_$'
-  log_u: '$\log_{10}\,\left(_symbol_ / _unit_\right)$'
+  default: '__symbol__'
+  default_u: '__symbol__ [__unit__]'
+  log: '$\log_{10}\,__symbol__$'
+  log_u: '$\log_{10}\,\left(__symbol__ / __unit__\right)$'
 
 labels:
 

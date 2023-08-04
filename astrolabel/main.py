@@ -88,10 +88,10 @@ class LabelLibrary:
         unit_plain = self.labels[name].unit
 
         label = self.formats[fmt + '_u'] if unit_plain else self.formats[fmt]
-        label = self._replace(label, '_symbol_', symbol)
+        label = self._replace(label, '__symbol__', symbol)
 
         if unit_plain:
             unit = u.Unit(unit_plain).to_string('latex_inline')
-            label = self._replace(label, '_unit_', unit)
+            label = self._replace(label, '__unit__', unit)
 
         return label

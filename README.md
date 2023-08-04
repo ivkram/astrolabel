@@ -43,8 +43,8 @@ Astrolabel reads the label data from a [YAML](https://yaml.org) file, which we c
 
 ```yaml
 formats:
-  default: '_symbol_'
-  default_u: '_symbol_ [_unit_]'
+  default: '__symbol__'
+  default_u: '__symbol__ [__unit__]'
 
 labels:
   sfr:
@@ -53,12 +53,12 @@ labels:
     description: 'Star-formation rate'  # optional
 ```
 
-The `formats` sections contains the list of custom template strings used by the `get_label()` method to format the label. When this method is called, the template string is modified as follows: `_symbol_` is replaced with the `symbol` attribute of the label, and `_unit_` is replaced with the `unit` attribute of the label.  Note that all template strings must come in two variants: one for labels with a unit, and another one for labels without a unit. The name of the template string where units are used must end with `_u` (e.g., `my_format_u`).
+The `formats` sections contains the list of custom template strings used by the `get_label()` method to format the label. When this method is called, the template string is modified as follows: `__symbol__` is replaced with the `symbol` attribute of the label, and `__unit__` is replaced with the `unit` attribute of the label.  Note that all template strings must come in two variants: one for labels with a unit, and another one for labels without a unit. The name of the template string where units are used must end with `_u` (e.g., `my_format_u`).
 
 Here is a more advanced example of template strings which can be used to create labels for plots with logarithmic axes:
 ```yaml
-log: '$\log_{10}\,_symbol_$'
-log_u: '$\log_{10}\,_symbol_ / _unit_$'
+log: '$\log_{10}\,__symbol__$'
+log_u: '$\log_{10}\,__symbol__ / __unit__$'
 ```
 
 To apply a custom format to the label, pass the `fmt` argument to `get_label()`:
