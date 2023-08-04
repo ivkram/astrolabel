@@ -1,18 +1,69 @@
 formats:
   default: '_symbol_'
   default_u: '_symbol_ [_unit_]'
-  log: '$\log_{10}\,\left(_symbol_\right)$'
-  log_u: '$\log_{10}\,\left(_symbol_ / \left(_unit_\right)\right)$'
+  log: '$\log_{10}\,_symbol_$'
+  log_u: '$\log_{10}\,\left(_symbol_ / _unit_\right)$'
 
 labels:
+  ########## Physical properties of galaxies ##########
+  mstar:
+    symbol: '\mathrm{M}_\bigstar'
+    unit: 'Msun'
+    description: 'Stellar mass'
+  sfr:
+    symbol: '\mathrm{SFR}'
+    unit: 'Msun yr-1'
+    description: 'Star-formation rate'
+  ssfr:
+    symbol: '\mathrm{sSFR}'
+    unit: 'yr-1'
+    description: 'Specific star-formation rate'
+  xi_ion:
+    symbol: '\xi_{\mathrm{ion}}'
+    unit: 'Hz erg-1'
+    description: 'Ionizing photon production efficiency'
+  av:
+    symbol: 'A(V)'
+    description: 'Absolute dust attenuation'
+
+  ########## Observed properties of galaxies ##########
   z:
     symbol: 'z'
     description: 'Redshift'
-  sfr:
-    symbol: '\mathrm{SFR}'
-    unit: 'Msun / yr'
-    description: 'Star-formation rate'
-  xi_ion:
-    symbol: '\xi_{ion}'
-    unit: 'Hz / erg'
-    description: 'Ionizing photon production efficiency'
+  muv:
+    symbol: '\mathrm{M_{UV}}'
+    description: 'Absolute UV magnitude'
+  beta:
+    symbol: '\beta'
+    description: 'UV spectral slope'
+  ebv:
+    symbol: '\mathrm{E(B-V)}'
+    description: 'Color excess'
+
+  ########## Galaxy evolution ##########
+  sfrd:
+    symbol: '\mathrm{SFRD}'
+    unit: 'Msun yr-1 Mpc-3'
+    description: 'Star-formation rate density'
+
+  ########## Spectroscopy ##########
+  wave:
+    symbol: '\lambda'
+    unit: 'AA'
+    description: 'Wavelength'
+  flam:
+    symbol: 'f_\lambda'
+    unit: 'erg s−1 cm−2 A-1'
+    description: 'Spectral flux density'
+  ew:
+    symbol: '\mathrm{EW}'
+    unit: 'AA'
+    description: 'Equivalent width'
+  f:
+    symbol: '\mathrm{F}'
+    unit: 'erg s−1 cm−2'
+    description: 'Flux'
+  lum:
+    symbol: '\mathrm{L}'
+    unit: 'erg s−1'
+    description: 'Luminosity'
