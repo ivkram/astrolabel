@@ -31,8 +31,8 @@ def test_library_fname(std_ll):
 
 
 def test_info(capsys):
-    ll = LabelLibrary(formats={}, labels={'z': AstroLabel(symbol='z', description='Redshift'),
-                                         'fesc': AstroLabel(symbol='f_{\\text{esc}}', description='Escape fraction')})
+    ll = LabelLibrary(formats={}, labels={'z': AstroLabel(symbol="z", description="Redshift"),
+                                          'fesc': AstroLabel(symbol="f_{\\text{esc}}", description="Escape fraction")})
     ll.info()
 
     captured = capsys.readouterr()
@@ -69,27 +69,32 @@ def test_read_is_directory(tmp_path):
     tmp_dir = tmp_path / "42"
     tmp_dir.mkdir()
 
-    with pytest.raises(IsADirectoryError, match="\".*\" is a directory"):
+    with pytest.raises(IsADirectoryError, match="'.*' is a directory"):
         LabelLibrary.read(tmp_dir)
 
 
 def test_read_file_not_found(tmp_path):
-    with pytest.raises(FileNotFoundError, match="File \".*\" does not exist"):
+    with pytest.raises(FileNotFoundError, match="File '.*' does not exist"):
         LabelLibrary.read(tmp_path / "non_existing_file.yml")
 
 
+def test_get_label_key_not_found(std_ll):
+    with pytest.raises(KeyError, match="Label key '.*' does not exist"):
+        std_ll.get_label('42')
+
+
 def test_get_label_without_unit(std_ll):
-    assert std_ll.get_label('z') == '$z$'
+    assert std_ll.get_label('z') == "$z$"
 
 
 def test_get_label_with_unit(std_ll):
-    assert std_ll.get_label('sfr') == r'$\mathrm{SFR}$ [$\mathrm{M_{\odot}\,yr^{-1}}$]'
+    assert std_ll.get_label('sfr') == r"$\mathrm{SFR}$ [$\mathrm{M_{\odot}\,yr^{-1}}$]"
 
 
 def test_get_label_log_without_unit(std_ll):
-    assert std_ll.get_label('z', fmt='log') == r'$\log_{10}\,z$'
+    assert std_ll.get_label('z', fmt="log") == r"$\log_{10}\,z$"
 
 
 def test_get_label_log_with_unit(std_ll):
-    assert std_ll.get_label('sfr', fmt='log') == (r'$\log_{10}\,\left(\mathrm{SFR} / \mathrm{M_{\odot}\,'
-                                              r'yr^{-1}}\right)$')
+    assert std_ll.get_label('sfr', fmt="log") == (r"$\log_{10}\,\left(\mathrm{SFR} / \mathrm{M_{\odot}\,"
+                                                  r"yr^{-1}}\right)$")

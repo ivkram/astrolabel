@@ -9,7 +9,7 @@ import sys
 from typing import Union, Dict
 
 
-DEFAULT_LIBRARY_PATH = pathlib.Path(__file__).parent / 'data' / 'astrolabel.yml'
+DEFAULT_LIBRARY_PATH = pathlib.Path(__file__).parent / "data" / "astrolabel.yml"
 
 
 @dataclass
@@ -37,7 +37,7 @@ class LabelLibrary:
         library_summary = []
         max_key_len = max(map(len, self.labels.keys()))
         for label_key, label_data in self.labels.items():
-            library_summary.append(f'{label_key:>{max_key_len}}: {label_data.description}')
+            library_summary.append(f"{label_key:>{max_key_len}}: {label_data.description}")
 
         output.write("\n".join(library_summary))
         output.write("\n")
@@ -63,9 +63,9 @@ class LabelLibrary:
 
         library_path = library_path.resolve()
         if library_path.is_dir():
-            raise IsADirectoryError(f"\"{library_path}\" is a directory")
+            raise IsADirectoryError(f"'{library_path}' is a directory")
         if not library_path.is_file():
-            raise FileNotFoundError(f"File \"{library_path}\" does not exist")
+            raise FileNotFoundError(f"File '{library_path}' does not exist")
 
         with open(library_path, "r") as label_library:
             label_data = yaml.safe_load(label_library)
@@ -81,19 +81,22 @@ class LabelLibrary:
     @staticmethod
     def _replace(label, key, value):
         i = label.index(key)
-        if label[:i].count('$') % 2 == 1:
+        if label[:i].count("$") % 2 == 1:
             value = value[1:-1]  # strip dollar signs
         return label.replace(key, value)
 
-    def get_label(self, name: str, fmt: str = 'default'):
-        symbol = f'${self.labels[name].symbol}$'  # treat the symbol as math text
+    def get_label(self, name: str, fmt: str = "default"):
+        if name not in self.labels.keys():
+            raise KeyError(f"Label key '{name}' does not exist")
+
+        symbol = f"${self.labels[name].symbol}$"  # treat the symbol as math text
         unit_plain = self.labels[name].unit
 
-        label = self.formats[fmt + '_u'] if unit_plain else self.formats[fmt]
-        label = self._replace(label, '__symbol__', symbol)
+        label = self.formats[fmt + "_u"] if unit_plain else self.formats[fmt]
+        label = self._replace(label, "__symbol__", symbol)
 
         if unit_plain:
-            unit = u.Unit(unit_plain).to_string('latex_inline')
-            label = self._replace(label, '__unit__', unit)
+            unit = u.Unit(unit_plain).to_string("latex_inline")
+            label = self._replace(label, "__unit__", unit)
 
         return label
