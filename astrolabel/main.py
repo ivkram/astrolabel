@@ -29,7 +29,7 @@ class LabelLibrary:
     labels: Dict[str, AstroLabel]
 
     def __post_init__(self):
-        self._library_path: pathlib.Path | None = None
+        self._library_path: Union[pathlib.Path, None] = None
 
     def library_fname(self):
         return self._library_path
@@ -89,14 +89,24 @@ class LabelLibrary:
             value = value[1:-1]  # strip dollar signs
         return template.replace(key, value)
 
-    def get_label(self, name: str, fmt: str = "default"):
+    def get_label(self, name: str, fmt: Union[str, None] = None):
         if name not in self.labels.keys():
-            raise KeyError(f"Label key '{name}' does not exist")
+            raise KeyError(f"Label key '{name}' not found")
+
+        if fmt is None:
+            fmt = "default"
+
+        if fmt not in self.formats.keys():
+            fmt_list = ', '.join(key for key in self.formats.keys() if not key.endswith('_u'))
+            raise ValueError(f"Label format '{fmt}' not found. Available formats: {fmt_list}")
 
         symbol = f"${self.labels[name].symbol}$"  # treat the symbol as math text
         unit = self.labels[name].unit
 
-        label = self.formats[fmt + "_u"] if unit else self.formats[fmt]
+        if unit:
+            fmt += "_u"
+
+        label = self.formats[fmt]
         label = self._substitute(label, "__symbol__", symbol)
 
         if unit:
