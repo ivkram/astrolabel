@@ -62,6 +62,8 @@ class LabelLibrary:
             library_path = pathlib.Path(filename)
 
         library_path = library_path.resolve()
+        if library_path.is_dir():
+            raise IsADirectoryError(f"\"{library_path}\" is a directory")
         if not library_path.is_file():
             raise FileNotFoundError(f"File \"{library_path}\" does not exist")
 

@@ -65,9 +65,17 @@ def test_read_from_default_location(set_env):
     assert ll.library_fname() == DEFAULT_LIBRARY_PATH
 
 
-def test_read_file_not_found():
+def test_read_is_directory(tmp_path):
+    tmp_dir = tmp_path / "42"
+    tmp_dir.mkdir()
+
+    with pytest.raises(IsADirectoryError, match="\".*\" is a directory"):
+        LabelLibrary.read(tmp_dir)
+
+
+def test_read_file_not_found(tmp_path):
     with pytest.raises(FileNotFoundError, match="File \".*\" does not exist"):
-        LabelLibrary.read("non_existing_file.yml")
+        LabelLibrary.read(tmp_path / "non_existing_file.yml")
 
 
 def test_get_label_without_unit(std_ll):
