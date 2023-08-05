@@ -8,6 +8,10 @@ import pathlib
 import sys
 from typing import Union, Dict
 
+__all__ = [
+    "AstroLabel",
+    "LabelLibrary"
+]
 
 DEFAULT_LIBRARY_PATH = pathlib.Path(__file__).parent / "data" / "astrolabel.yml"
 
