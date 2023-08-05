@@ -79,24 +79,24 @@ class LabelLibrary:
         return ll
 
     @staticmethod
-    def _replace(label, key, value):
-        i = label.index(key)
-        if label[:i].count("$") % 2 == 1:
+    def _substitute(template, key, value):
+        i = template.index(key)
+        if template[:i].count("$") % 2 == 1:
             value = value[1:-1]  # strip dollar signs
-        return label.replace(key, value)
+        return template.replace(key, value)
 
     def get_label(self, name: str, fmt: str = "default"):
         if name not in self.labels.keys():
             raise KeyError(f"Label key '{name}' does not exist")
 
         symbol = f"${self.labels[name].symbol}$"  # treat the symbol as math text
-        unit_plain = self.labels[name].unit
+        unit = self.labels[name].unit
 
-        label = self.formats[fmt + "_u"] if unit_plain else self.formats[fmt]
-        label = self._replace(label, "__symbol__", symbol)
+        label = self.formats[fmt + "_u"] if unit else self.formats[fmt]
+        label = self._substitute(label, "__symbol__", symbol)
 
-        if unit_plain:
-            unit = u.Unit(unit_plain).to_string("latex_inline")
-            label = self._replace(label, "__unit__", unit)
+        if unit:
+            unit_formatted = u.Unit(unit).to_string("latex_inline")
+            label = self._substitute(label, "__unit__", unit_formatted)
 
         return label
