@@ -23,9 +23,6 @@ labels:
     symbol: '\xi_{\mathrm{ion}}'
     unit: 'Hz erg-1'
     description: 'Ionizing photon production efficiency'
-  av:
-    symbol: 'A(V)'
-    description: 'Absolute dust attenuation'
 
   ########## Observed properties of galaxies ##########
   z:
@@ -40,6 +37,9 @@ labels:
   ebv:
     symbol: '\mathrm{E(B-V)}'
     description: 'Color excess'
+  av:
+    symbol: 'A(V)'
+    description: 'Absolute dust attenuation'
 
   ################# Galaxy evolution ##################
   smf:

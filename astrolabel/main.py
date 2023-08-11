@@ -83,11 +83,23 @@ class LabelLibrary:
         return ll
 
     @staticmethod
-    def _substitute(template, key, value):
+    def _substitute(template: str, key: str, value: str) -> str:
         i = template.index(key)
         if template[:i].count("$") % 2 == 1:
             value = value[1:-1]  # strip dollar signs
         return template.replace(key, value)
+
+    @staticmethod
+    def _process_symbol_str(symbol: str) -> str:
+        symbol = f"${symbol}$"  # treat symbols as math text
+        return symbol
+
+    @staticmethod
+    def _process_unit_str(unit: str) -> str:
+        unit: str = u.Unit(unit).to_string("latex_inline")
+        if unit.startswith(r"$\mathrm{1 \times "):
+            unit = unit.replace(r"1 \times ", r"")
+        return unit
 
     def get_label(self, name: str, fmt: Union[str, None] = None):
         if name not in self.labels.keys():
@@ -100,17 +112,19 @@ class LabelLibrary:
             fmt_list = ', '.join(key for key in self.formats.keys() if not key.endswith('_u'))
             raise ValueError(f"Label format '{fmt}' not found. Available formats: {fmt_list}")
 
-        symbol = f"${self.labels[name].symbol}$"  # treat the symbol as math text
+        symbol = self.labels[name].symbol
         unit = self.labels[name].unit
 
         if unit:
             fmt += "_u"
 
         label = self.formats[fmt]
-        label = self._substitute(label, "__symbol__", symbol)
+
+        symbol_formatted = self._process_symbol_str(symbol)
+        label = self._substitute(label, "__symbol__", symbol_formatted)
 
         if unit:
-            unit_formatted = u.Unit(unit).to_string("latex_inline")
+            unit_formatted = self._process_unit_str(unit)
             label = self._substitute(label, "__unit__", unit_formatted)
 
         return label

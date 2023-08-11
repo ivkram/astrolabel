@@ -107,3 +107,10 @@ def test_get_label_log_without_unit(std_ll):
 def test_get_label_log_with_unit(std_ll):
     assert std_ll.get_label('sfr', fmt="log") == (r"$\log_{10}\,\left(\mathrm{SFR} / \mathrm{M_{\odot}\,"
                                                   r"yr^{-1}}\right)$")
+
+
+def test_process_unit_str_with_scale(std_ll):
+    assert LabelLibrary._process_unit_str("1e1") in (r"$\mathrm{10\,}$", r"$\mathrm{10}$")
+    assert LabelLibrary._process_unit_str("1e10") in (r"$\mathrm{10^{10}\,}$", r"$\mathrm{10^{10}}$")
+    assert LabelLibrary._process_unit_str("1.1e10") in (r"$\mathrm{1.1 \times 10^{10}\,}$",
+                                                        r"$\mathrm{1.1 \times 10^{10}}$")
