@@ -34,6 +34,11 @@ Change the label format:
 >>> ll.get_label('sfr', fmt='log')  # output: '$\\log_{10}\\,\\left(\\mathrm{SFR} / \\mathrm{M_{\\odot}\\,yr^{-1}}\\right)$'
 ```
 
+Change the unit scale:
+```python
+>>> ll.get_label('flam', scale=1e-20)  # output: '$f_\\lambda$ [$\\mathrm{10^{-20}\\,erg\\,A^{-1}\\,s^{-1}\\,cm^{-2}}$]'
+```
+
 Print the list of available labels:
 
 ```python

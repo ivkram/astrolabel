@@ -109,6 +109,10 @@ def test_get_label_log_with_unit(std_ll):
                                                   r"yr^{-1}}\right)$")
 
 
+def test_get_label_with_scaled_unit(std_ll):
+    assert std_ll.get_label('flam', scale=1e-20) == r"$f_\lambda$ [$\mathrm{10^{-20}\,erg\,A^{-1}\,s^{-1}\,cm^{-2}}$]"
+
+
 def test_format_unit_with_scale(std_ll):
     assert LabelLibrary._format_unit("1e1") in (r"$\mathrm{10\,}$", r"$\mathrm{10}$")
     assert LabelLibrary._format_unit("1e10") in (r"$\mathrm{10^{10}\,}$", r"$\mathrm{10^{10}}$")

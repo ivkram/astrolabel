@@ -95,13 +95,18 @@ class LabelLibrary:
         return symbol
 
     @staticmethod
-    def _format_unit(unit: str) -> str:
-        unit: str = u.Unit(unit).to_string("latex_inline")
+    def _format_unit(unit: str, scale: float = None) -> str:
+        unit = u.Unit(unit)
+        if scale:
+            unit = u.Unit(scale * unit)
+
+        unit = unit.to_string("latex_inline")
         if unit.startswith(r"$\mathrm{1 \times "):
             unit = unit.replace(r"1 \times ", r"")
+
         return unit
 
-    def get_label(self, name: str, fmt: Union[str, None] = None):
+    def get_label(self, name: str, fmt: Union[str, None] = None, scale: float = None):
         if name not in self.labels.keys():
             raise KeyError(f"Label key '{name}' not found")
 
@@ -124,7 +129,7 @@ class LabelLibrary:
         label = self._substitute(label, "__symbol__", symbol_formatted)
 
         if unit:
-            unit_formatted = self._format_unit(unit)
+            unit_formatted = self._format_unit(unit, scale)
             label = self._substitute(label, "__unit__", unit_formatted)
 
         return label
