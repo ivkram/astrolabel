@@ -31,7 +31,7 @@ class LabelLibrary:
     def __post_init__(self):
         self._library_path: Union[pathlib.Path, None] = None
 
-    def library_fname(self):
+    def library_path(self):
         return self._library_path
 
     def info(self, output=None):

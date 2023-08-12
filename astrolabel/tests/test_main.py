@@ -29,9 +29,9 @@ def tmp_library_path(tmp_path) -> pathlib.Path:
     return library_path
 
 
-def test_library_fname(std_ll, empty_ll):
-    assert std_ll.library_fname() == DEFAULT_LIBRARY_PATH
-    assert empty_ll.library_fname() is None
+def test_library_path(std_ll, empty_ll):
+    assert std_ll.library_path() == DEFAULT_LIBRARY_PATH
+    assert empty_ll.library_path() is None
 
 
 def test_info(capsys):
@@ -46,27 +46,27 @@ def test_info(capsys):
 def test_read_from_file(tmp_library_path):
     ll = LabelLibrary.read(tmp_library_path)
 
-    assert ll.library_fname() == tmp_library_path
+    assert ll.library_path() == tmp_library_path
 
 
 def test_read_from_workdir(set_env, tmp_library_path, monkeypatch):
     monkeypatch.chdir(tmp_library_path.parent)
     ll = LabelLibrary.read()
 
-    assert ll.library_fname() == tmp_library_path
+    assert ll.library_path() == tmp_library_path
 
 
 def test_read_from_env_variable(set_env, tmp_library_path, monkeypatch):
     monkeypatch.setenv("ASTROLABEL", str(tmp_library_path))
     ll = LabelLibrary.read()
 
-    assert ll.library_fname() == tmp_library_path
+    assert ll.library_path() == tmp_library_path
 
 
 def test_read_from_default_location(set_env):
     ll = LabelLibrary.read()
 
-    assert ll.library_fname() == DEFAULT_LIBRARY_PATH
+    assert ll.library_path() == DEFAULT_LIBRARY_PATH
 
 
 def test_read_is_directory(tmp_path):
@@ -112,5 +112,4 @@ def test_get_label_log_with_unit(std_ll):
 def test_format_unit_with_scale(std_ll):
     assert LabelLibrary._format_unit("1e1") in (r"$\mathrm{10\,}$", r"$\mathrm{10}$")
     assert LabelLibrary._format_unit("1e10") in (r"$\mathrm{10^{10}\,}$", r"$\mathrm{10^{10}}$")
-    assert LabelLibrary._format_unit("1.1e10") in (r"$\mathrm{1.1 \times 10^{10}\,}$",
-                                                        r"$\mathrm{1.1 \times 10^{10}}$")
+    assert LabelLibrary._format_unit("1.1e10") in (r"$\mathrm{1.1 \times 10^{10}\,}$", r"$\mathrm{1.1 \times 10^{10}}$")

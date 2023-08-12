@@ -88,10 +88,10 @@ In case no arguments are passed to the constructor, Astrolabel looks for the lab
 2. `$ASTROLABEL` - the best option for users who want to use the same library across different projects.
 3. The default library location (see below). Note that the default library will be overwritten each time you reinstall or update the package. 
 
-To check the location of the currently active library, call the `library_fname()` method of the `LabelLibrary` object:
+To check the location of the currently active library, call the `library_path()` method of the `LabelLibrary` object:
 
 ```python
->>> ll.library_fname()  # output: PosixPath('/home/foo/.../bar/astrolabel.yml')
+>>> ll.library_path()  # output: PosixPath('/home/foo/.../bar/astrolabel.yml')
 ```
 
 
