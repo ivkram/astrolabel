@@ -90,12 +90,12 @@ class LabelLibrary:
         return template.replace(key, value)
 
     @staticmethod
-    def _process_symbol_str(symbol: str) -> str:
+    def _format_symbol(symbol: str) -> str:
         symbol = f"${symbol}$"  # treat symbols as math text
         return symbol
 
     @staticmethod
-    def _process_unit_str(unit: str) -> str:
+    def _format_unit(unit: str) -> str:
         unit: str = u.Unit(unit).to_string("latex_inline")
         if unit.startswith(r"$\mathrm{1 \times "):
             unit = unit.replace(r"1 \times ", r"")
@@ -120,11 +120,11 @@ class LabelLibrary:
 
         label = self.formats[fmt]
 
-        symbol_formatted = self._process_symbol_str(symbol)
+        symbol_formatted = self._format_symbol(symbol)
         label = self._substitute(label, "__symbol__", symbol_formatted)
 
         if unit:
-            unit_formatted = self._process_unit_str(unit)
+            unit_formatted = self._format_unit(unit)
             label = self._substitute(label, "__unit__", unit_formatted)
 
         return label
