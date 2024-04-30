@@ -8,8 +8,8 @@ readme = "README.md"
 repository = "https://github.com/ivkram/astrolabel"
 
 [tool.poetry.dependencies]
-python = ">=3.8"
-astropy = ">=5.0"
+python = ">=3.9"
+astropy = ">=6.0"
 dacite = ">=1.8.0"
 
 [tool.poetry.group.test.dependencies]
