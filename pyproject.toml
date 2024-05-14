@@ -16,9 +16,6 @@ dacite = ">=1.8.0"
 pytest = ">=7.4.0"
 pytest-cov = ">=4.1.0"
 tox = ">=4.6.0"
-[tool.poetry.group.examples.dependencies]
-matplotlib = "*"
-notebook = "*"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
