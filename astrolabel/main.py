@@ -5,8 +5,9 @@ import yaml
 from dataclasses import dataclass
 import os
 import pathlib
+import re
 import sys
-from typing import Union, Dict
+from typing import Dict, List, Optional, Union, Tuple
 
 __all__ = [
     "AstroLabel",
@@ -19,20 +20,26 @@ DEFAULT_LIBRARY_PATH = pathlib.Path(__file__).parent / "data" / "astrolabel.yml"
 @dataclass
 class AstroLabel:
     symbol: str
-    unit: Union[str, None] = None
-    description: Union[str, None] = None
+    unit: Optional[str] = None
+    description: Optional[str] = None
 
 
 @dataclass
 class LabelLibrary:
     formats: Dict[str, str]
+    scripts: Optional[Dict[str, str]]
     labels: Dict[str, AstroLabel]
 
     def __post_init__(self):
-        self._library_path: Union[pathlib.Path, None] = None
+        self._library_path: Optional[pathlib.Path] = None
 
-    def library_path(self):
+    @property
+    def library_path(self) -> Optional[pathlib.Path]:
         return self._library_path
+
+    @property
+    def _fmt_names(self) -> List[str]:
+        return [key for key in self.formats.keys() if not key.endswith('_u')]
 
     def info(self, output=None):
         if output is None:
@@ -59,7 +66,7 @@ class LabelLibrary:
         return pathlib.Path(library_path)
 
     @classmethod
-    def read(cls, filename: Union[str, pathlib.Path, None] = None):
+    def read(cls, filename: Optional[Union[str, pathlib.Path]] = None):
         if filename is None:
             library_path = cls._get_library_path()
         else:
@@ -89,8 +96,37 @@ class LabelLibrary:
             value = value[1:-1]  # strip dollar signs
         return template.replace(key, value)
 
+    def _parse_name(self, name) -> Tuple[AstroLabel, List[str], List[str]]:
+        subs = re.findall(r'_([a-zA-Z0-9]+)', name)
+        sups = re.findall(r'\^([a-zA-Z0-9]+)', name)
+
+        name = name.split('_')[0].split('^')[0]
+
+        if name not in self.labels.keys():
+            raise KeyError(f"Label key '{name}' not found")
+        for sub in subs:
+            if sub not in self.scripts.keys():
+                raise KeyError(f"Subscript '{sub}' not found")
+        for sup in subs:
+            if sup not in self.scripts.keys():
+                raise KeyError(f"Superscript '{sup}' not found")
+
+        subs = [self.scripts[sub] for sub in subs]
+        sups = [self.scripts[sup] for sup in sups]
+
+        return self.labels[name], subs, sups
+
+
     @staticmethod
-    def _format_symbol(symbol: str) -> str:
+    def _format_symbol(symbol: str, subs: Optional[List[str]] = None, sups: Optional[List[str]] = None) -> str:
+        if subs:
+            symbol += "_{"
+            symbol += ",\,".join(subs)
+            symbol += "}"
+        if sups:
+            symbol += "^{"
+            symbol += ",\,".join(sups)
+            symbol += "}"
         symbol = f"${symbol}$"  # treat symbols as math text
         return symbol
 
@@ -106,30 +142,21 @@ class LabelLibrary:
 
         return unit
 
-    def get_label(self, name: str, fmt: Union[str, None] = None, scale: float = None):
-        if name not in self.labels.keys():
-            raise KeyError(f"Label key '{name}' not found")
-
-        if fmt is None:
-            fmt = "default"
+    def get_label(self, name: str, fmt: str = 'linear', scale: float = None):
+        al, subs, sups = self._parse_name(name)
 
         if fmt not in self.formats.keys():
-            fmt_list = ', '.join(key for key in self.formats.keys() if not key.endswith('_u'))
-            raise ValueError(f"Label format '{fmt}' not found. Available formats: {fmt_list}")
-
-        symbol = self.labels[name].symbol
-        unit = self.labels[name].unit
-
-        if unit:
+            raise ValueError(f"Label format '{fmt}' not found. Available formats: {', '.join(self._fmt_names)}")
+        if al.unit:
             fmt += "_u"
 
         label = self.formats[fmt]
 
-        symbol_formatted = self._format_symbol(symbol)
+        symbol_formatted = self._format_symbol(al.symbol, subs=subs, sups=sups)
         label = self._substitute(label, "__symbol__", symbol_formatted)
 
-        if unit:
-            unit_formatted = self._format_unit(unit, scale)
+        if al.unit:
+            unit_formatted = self._format_unit(al.unit, scale)
             label = self._substitute(label, "__unit__", unit_formatted)
 
         return label

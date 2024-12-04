@@ -53,8 +53,8 @@ Astrolabel reads the label data from a [YAML](https://yaml.org) file, which we c
 
 ```yaml
 formats:
-  default: '__symbol__'
-  default_u: '__symbol__ [__unit__]'
+  linear: '__symbol__'
+  linear_u: '__symbol__ [__unit__]'
 
 labels:
   sfr:
@@ -96,13 +96,13 @@ In case no arguments are passed to the constructor, Astrolabel looks for the lab
 To check the location of the currently active library, call the `library_path()` method of the `LabelLibrary` object:
 
 ```python
->>> ll.library_path()  # output: PosixPath('/home/foo/.../bar/astrolabel.yml')
+>>> ll.library_path  # output: PosixPath('/home/foo/.../bar/astrolabel.yml')
 ```
 
 
 ### The default library
 
-The Astrolabel package comes with a label library which includes two label formats (`default` and `log`) and some labels commonly used for astronomy plots. The location of the default label library is stored in the `DEFAULT_LIBRARY_PATH` constant:
+The Astrolabel package comes with a label library which includes two label formats (`linear` and `log`) and some labels commonly used for astronomy plots. The location of the default label library is stored in the `DEFAULT_LIBRARY_PATH` constant:
 
 ```python
 >>> from astrolabel import DEFAULT_LIBRARY_PATH

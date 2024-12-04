@@ -18,7 +18,7 @@ def std_ll() -> LabelLibrary:
 
 @pytest.fixture(scope="module")
 def empty_ll() -> LabelLibrary:
-    return LabelLibrary(formats={}, labels={})
+    return LabelLibrary(formats={}, scripts={}, labels={})
 
 
 @pytest.fixture
@@ -30,13 +30,13 @@ def tmp_library_path(tmp_path) -> pathlib.Path:
 
 
 def test_library_path(std_ll, empty_ll):
-    assert std_ll.library_path() == DEFAULT_LIBRARY_PATH
-    assert empty_ll.library_path() is None
+    assert std_ll.library_path == DEFAULT_LIBRARY_PATH
+    assert empty_ll.library_path is None
 
 
 def test_info(capsys):
-    ll = LabelLibrary(formats={}, labels={'z': AstroLabel(symbol="z", description="Redshift"),
-                                          'fesc': AstroLabel(symbol="f_{\\text{esc}}", description="Escape fraction")})
+    ll = LabelLibrary(formats={}, scripts={}, labels={'z': AstroLabel(symbol="z", description="Redshift"),
+                                                      'fesc': AstroLabel(symbol="f_{\\text{esc}}", description="Escape fraction")})
     ll.info()
 
     captured = capsys.readouterr()
@@ -46,27 +46,27 @@ def test_info(capsys):
 def test_read_from_file(tmp_library_path):
     ll = LabelLibrary.read(tmp_library_path)
 
-    assert ll.library_path() == tmp_library_path
+    assert ll.library_path == tmp_library_path
 
 
 def test_read_from_workdir(set_env, tmp_library_path, monkeypatch):
     monkeypatch.chdir(tmp_library_path.parent)
     ll = LabelLibrary.read()
 
-    assert ll.library_path() == tmp_library_path
+    assert ll.library_path == tmp_library_path
 
 
 def test_read_from_env_variable(set_env, tmp_library_path, monkeypatch):
     monkeypatch.setenv("ASTROLABEL", str(tmp_library_path))
     ll = LabelLibrary.read()
 
-    assert ll.library_path() == tmp_library_path
+    assert ll.library_path == tmp_library_path
 
 
 def test_read_from_default_location(set_env):
     ll = LabelLibrary.read()
 
-    assert ll.library_path() == DEFAULT_LIBRARY_PATH
+    assert ll.library_path == DEFAULT_LIBRARY_PATH
 
 
 def test_read_is_directory(tmp_path):
@@ -110,10 +110,22 @@ def test_get_label_log_with_unit(std_ll):
 
 
 def test_get_label_with_scaled_unit(std_ll):
-    assert std_ll.get_label('flam', scale=1e-20) == r"$f_\lambda$ [$\mathrm{10^{-20}\,erg\,A^{-1}\,s^{-1}\,cm^{-2}}$]"
+    assert std_ll.get_label('flam', scale=1e-20) == r"$f^\lambda$ [$\mathrm{10^{-20}\,erg\,A^{-1}\,s^{-1}\,cm^{-2}}$]"
 
 
 def test_format_unit_with_scale(std_ll):
     assert LabelLibrary._format_unit("1e1") in (r"$\mathrm{10\,}$", r"$\mathrm{10}$")
     assert LabelLibrary._format_unit("1e10") in (r"$\mathrm{10^{10}\,}$", r"$\mathrm{10^{10}}$")
     assert LabelLibrary._format_unit("1.1e10") in (r"$\mathrm{1.1 \times 10^{10}\,}$", r"$\mathrm{1.1 \times 10^{10}}$")
+
+
+def test_get_label_with_subs(std_ll):
+    assert std_ll.get_label('m_star') == r"$\mathrm{M}_{\bigstar}$ [$\mathrm{M_{\odot}}$]"
+    assert std_ll.get_label('m_star_star') == r"$\mathrm{M}_{\bigstar,\,\bigstar}$ [$\mathrm{M_{\odot}}$]"
+
+def test_get_label_with_sups(std_ll):
+    assert std_ll.get_label('flam_ha') == r"$f^\lambda_{\mathrm{H}\alpha}$ [$\mathrm{erg\,A^{-1}\,s^{-1}\,cm^{-2}}$]"
+    assert std_ll.get_label('flam_ha_obs') == r"$f^\lambda_{\mathrm{H}\alpha,\,\mathrm{obs}}$ [$\mathrm{erg\,A^{-1}\,s^{-1}\,cm^{-2}}$]"
+
+def test_get_label_with_subs_and_sups(std_ll):
+    assert std_ll.get_label('m_star^obs_int') == r"$\mathrm{M}_{\bigstar,\,\mathrm{int}}^{\mathrm{obs}}$ [$\mathrm{M_{\odot}}$]"

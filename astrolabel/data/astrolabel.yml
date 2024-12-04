@@ -1,16 +1,28 @@
 formats:
-  default: '__symbol__'
-  default_u: '__symbol__ [__unit__]'
+  linear: '__symbol__'
+  linear_u: '__symbol__ [__unit__]'
   log: '$\log_{10}\,__symbol__$'
   log_u: '$\log_{10}\,\left(__symbol__ / __unit__\right)$'
+
+scripts:
+  star: '\bigstar'
+  bh: '\mathrm{BH}'
+  uv: '\mathrm{UV}'
+
+  obs: '\mathrm{obs}'
+  int: '\mathrm{int}'
+
+  # Spectral lines
+  ha: '\mathrm{H}\alpha'
+  hb: '\mathrm{H}\beta'
 
 labels:
 
   ########## Physical properties of galaxies ##########
-  mstar:
-    symbol: '\mathrm{M}_\bigstar'
+  m:
+    symbol: '\mathrm{M}'
     unit: 'Msun'
-    description: 'Stellar mass'
+    description: 'Mass'
   sfr:
     symbol: '\mathrm{SFR}'
     unit: 'Msun yr-1'
@@ -19,8 +31,8 @@ labels:
     symbol: '\mathrm{sSFR}'
     unit: 'yr-1'
     description: 'Specific star-formation rate'
-  xi_ion:
-    symbol: '\xi_{\mathrm{ion}}'
+  xi:
+    symbol: '\xi_\mathrm{ion}'
     unit: 'Hz erg-1'
     description: 'Ionizing photon production efficiency'
 
@@ -28,9 +40,9 @@ labels:
   z:
     symbol: 'z'
     description: 'Redshift'
-  muv:
-    symbol: '\mathrm{M_{UV}}'
-    description: 'Absolute UV magnitude'
+  absmag:
+    symbol: '\mathrm{M}'
+    description: 'Absolute magnitude'
   beta:
     symbol: '\beta'
     description: 'UV spectral slope'
@@ -38,8 +50,8 @@ labels:
     symbol: '\mathrm{E(B-V)}'
     description: 'Color excess'
   av:
-    symbol: 'A(V)'
-    description: 'Absolute dust attenuation'
+    symbol: 'A'
+    description: 'Dust attenuation'
 
   ################# Galaxy evolution ##################
   smf:
@@ -57,17 +69,17 @@ labels:
     unit: 'AA'
     description: 'Wavelength'
   flam:
-    symbol: 'f_\lambda'
+    symbol: 'f^\lambda'
+    unit: 'erg s−1 cm−2 A-1'
+    description: 'Spectral flux density'
+  fnu:
+    symbol: 'f^\nu'
     unit: 'erg s−1 cm−2 A-1'
     description: 'Spectral flux density'
   ew:
     symbol: '\mathrm{EW}'
     unit: 'AA'
     description: 'Equivalent width'
-  f:
-    symbol: '\mathrm{F}'
-    unit: 'erg s−1 cm−2'
-    description: 'Flux'
   lum:
     symbol: '\mathrm{L}'
     unit: 'erg s−1'
