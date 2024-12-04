@@ -121,11 +121,14 @@ def test_format_unit_with_scale(std_ll):
 
 def test_get_label_with_subs(std_ll):
     assert std_ll.get_label('m_star') == r"$\mathrm{M}_{\bigstar}$ [$\mathrm{M_{\odot}}$]"
-    assert std_ll.get_label('m_star_star') == r"$\mathrm{M}_{\bigstar,\,\bigstar}$ [$\mathrm{M_{\odot}}$]"
+    assert std_ll.get_label('m_star_star') == r"$\mathrm{M}_{\bigstar,\bigstar}$ [$\mathrm{M_{\odot}}$]"
 
 def test_get_label_with_sups(std_ll):
     assert std_ll.get_label('flam_ha') == r"$f^\lambda_{\mathrm{H}\alpha}$ [$\mathrm{erg\,A^{-1}\,s^{-1}\,cm^{-2}}$]"
-    assert std_ll.get_label('flam_ha_obs') == r"$f^\lambda_{\mathrm{H}\alpha,\,\mathrm{obs}}$ [$\mathrm{erg\,A^{-1}\,s^{-1}\,cm^{-2}}$]"
+    assert std_ll.get_label('flam_ha_obs') == r"$f^\lambda_{\mathrm{H}\alpha,\mathrm{obs}}$ [$\mathrm{erg\,A^{-1}\,s^{-1}\,cm^{-2}}$]"
 
 def test_get_label_with_subs_and_sups(std_ll):
-    assert std_ll.get_label('m_star^obs_int') == r"$\mathrm{M}_{\bigstar,\,\mathrm{int}}^{\mathrm{obs}}$ [$\mathrm{M_{\odot}}$]"
+    assert std_ll.get_label('m_star^obs_int') == r"$\mathrm{M}_{\bigstar,\mathrm{int}}^{\mathrm{obs}}$ [$\mathrm{M_{\odot}}$]"
+
+def test_get_laebl_with_wrap(std_ll):
+    assert std_ll.get_label('bd_obs') == r"$\left(\mathrm{H}\alpha/\mathrm{H}\beta\right)_{\mathrm{obs}}$"

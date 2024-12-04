@@ -10,7 +10,7 @@ $ pip install astrolabel
 
 ## Requirements
 
-- `python>=3.8`
+- `python>=3.9`
 - `astropy>=5.0`
 - `dacite>=1.8.0`
 

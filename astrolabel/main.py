@@ -22,6 +22,7 @@ class AstroLabel:
     symbol: str
     unit: Optional[str] = None
     description: Optional[str] = None
+    wrap: bool = False
 
 
 @dataclass
@@ -118,14 +119,16 @@ class LabelLibrary:
 
 
     @staticmethod
-    def _format_symbol(symbol: str, subs: Optional[List[str]] = None, sups: Optional[List[str]] = None) -> str:
+    def _format_symbol(symbol: str, subs: Optional[List[str]] = None, sups: Optional[List[str]] = None, wrap: bool = False) -> str:
+        if wrap:
+            symbol = fr"\left({symbol}\right)"
         if subs:
             symbol += "_{"
-            symbol += ",\,".join(subs)
+            symbol += ",".join(subs)
             symbol += "}"
         if sups:
             symbol += "^{"
-            symbol += ",\,".join(sups)
+            symbol += ",".join(sups)
             symbol += "}"
         symbol = f"${symbol}$"  # treat symbols as math text
         return symbol
@@ -152,7 +155,7 @@ class LabelLibrary:
 
         label = self.formats[fmt]
 
-        symbol_formatted = self._format_symbol(al.symbol, subs=subs, sups=sups)
+        symbol_formatted = self._format_symbol(al.symbol, subs=subs, sups=sups, wrap=al.wrap)
         label = self._substitute(label, "__symbol__", symbol_formatted)
 
         if al.unit:

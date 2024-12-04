@@ -9,8 +9,8 @@ scripts:
   bh: '\mathrm{BH}'
   uv: '\mathrm{UV}'
 
-  obs: '\mathrm{obs}'
-  int: '\mathrm{int}'
+  obs: '\mathrm{obs}'  # observed
+  int: '\mathrm{int}'  # intrinsic
 
   # Spectral lines
   ha: '\mathrm{H}\alpha'
@@ -50,7 +50,7 @@ labels:
     symbol: '\mathrm{E(B-V)}'
     description: 'Color excess'
   av:
-    symbol: 'A'
+    symbol: 'A_\mathrm{V}'
     description: 'Dust attenuation'
 
   ################# Galaxy evolution ##################
@@ -84,3 +84,7 @@ labels:
     symbol: '\mathrm{L}'
     unit: 'erg s−1'
     description: 'Luminosity'
+  bd:
+    symbol: '\mathrm{H}\alpha/\mathrm{H}\beta'
+    description: 'Balmer decrement'
+    wrap: true
