@@ -16,6 +16,8 @@ scripts:
   ha: '\mathrm{H}\alpha'
   hb: '\mathrm{H}\beta'
 
+  none: ''
+
 labels:
 
   ########## Physical properties of galaxies ##########

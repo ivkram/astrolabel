@@ -112,8 +112,8 @@ class LabelLibrary:
             if sup not in self.scripts.keys():
                 raise KeyError(f"Superscript '{sup}' not found")
 
-        subs = [self.scripts[sub] for sub in subs]
-        sups = [self.scripts[sup] for sup in sups]
+        subs = [self.scripts[sub] for sub in subs if self.scripts[sub]]
+        sups = [self.scripts[sup] for sup in sups if self.scripts[sup]]
 
         return self.labels[name], subs, sups
 
