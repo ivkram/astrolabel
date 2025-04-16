@@ -135,3 +135,9 @@ def test_get_laebl_with_wrap(std_ll):
 
 def test_get_label_with_empty_sub(std_ll):
     assert std_ll.get_label("z_none") == "$z$"
+
+def test_get_symbol(std_ll):
+    assert std_ll.get_symbol("sfr") == r"$\mathrm{SFR}$"
+
+def test_get_symbol_with_unit(std_ll):
+    assert std_ll.get_symbol("m_star") == r"$\mathrm{M}_{\bigstar}$"

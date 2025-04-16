@@ -163,3 +163,9 @@ class LabelLibrary:
             label = self._substitute(label, "__unit__", unit_formatted)
 
         return label
+
+    def get_symbol(self, name: str):
+        al, subs, sups = self._parse_name(name)
+        symbol_formatted = self._format_symbol(al.symbol, subs=subs, sups=sups)
+
+        return symbol_formatted
