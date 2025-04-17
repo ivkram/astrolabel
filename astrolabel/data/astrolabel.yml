@@ -12,14 +12,19 @@ scripts:
   obs: '\mathrm{obs}'  # observed
   int: '\mathrm{int}'  # intrinsic
 
-  # Spectral lines
+  lya: '\mathrm{Ly}\alpha'
   ha: '\mathrm{H}\alpha'
   hb: '\mathrm{H}\beta'
+
+  U: '\mathrm{U}'
+  B: '\mathrm{B}'
+  V: '\mathrm{U}'
+
+  esc: '\mathrm{esc}'  # as in "escape fraction"
 
   none: ''
 
 labels:
-
   ########## Physical properties of galaxies ##########
   m:
     symbol: '\mathrm{M}'
@@ -37,6 +42,17 @@ labels:
     symbol: '\xi_\mathrm{ion}'
     unit: 'Hz erg-1'
     description: 'Ionizing photon production efficiency'
+  Z:
+    symbol: '\mathrm{Z}'
+    unit: 'Zsun'
+    description: 'Metallicity'
+  f:
+    symbol: 'f'
+    description: 'Escape fraction'
+  lum:
+    symbol: '\mathrm{L}'
+    unit: 'erg s−1'
+    description: 'Luminosity'
 
   ########## Observed properties of galaxies ##########
   z:
@@ -51,8 +67,8 @@ labels:
   ebv:
     symbol: '\mathrm{E(B-V)}'
     description: 'Color excess'
-  av:
-    symbol: 'A_\mathrm{V}'
+  a:
+    symbol: 'A'
     description: 'Dust attenuation'
 
   ################# Galaxy evolution ##################
@@ -82,10 +98,6 @@ labels:
     symbol: '\mathrm{EW}'
     unit: 'AA'
     description: 'Equivalent width'
-  lum:
-    symbol: '\mathrm{L}'
-    unit: 'erg s−1'
-    description: 'Luminosity'
   bd:
     symbol: '\mathrm{H}\alpha/\mathrm{H}\beta'
     description: 'Balmer decrement'
