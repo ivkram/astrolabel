@@ -61,9 +61,10 @@ labels:
     symbol: '\mathrm{SFR}'
     unit: 'Msun yr-1'                   # optional
     description: 'Star-formation rate'  # optional
+    wrap: false                         # optional, default: false
 ```
 
-The `formats` sections contains the list of custom template strings used by the `get_label()` method to format the label. When this method is called, the template string is modified as follows: `__symbol__` is replaced with the `symbol` attribute of the label, and `__unit__` is replaced with the `unit` attribute of the label.  Note that all template strings must come in two variants: one for labels with a unit, and another one for labels without a unit. The name of the template string where units are used must end with `_u` (e.g., `my_format_u`).
+The `formats` section of the label library comprises custom template strings used by the `get_label()` method to format the label. When this method is called, the template string is modified as follows: `__symbol__` is replaced with the `symbol` attribute of the label, and `__unit__` is replaced with the `unit` attribute of the label.  Note that all template strings must come in two variants: one for labels with a unit, and another one for labels without a unit. The name of the template string where units are used must end with `_u` (e.g., `my_format_u`).
 
 Here is a more advanced example of template strings which can be used to create labels for plots with logarithmic axes:
 ```yaml
@@ -71,11 +72,12 @@ log: '$\log_{10}\,__symbol__$'
 log_u: '$\log_{10}\,\left(__symbol__ / __unit__\right)$'
 ```
 
-The `labels` section of the label library contains the list of custom plot labels, each of which has the following attributes:
+The `labels` section of the label library comprises custom plot labels with the following attributes:
 
-- `symbol`: the symbol representing the plotted parameter. Note that math mode is applied to all symbols by default. Therefore, use `\mathrm{}` in cases where the upright letter notation is preferable (e.g., `\mathrm{SFR}`);
+- `symbol`: the symbol representing the plotted parameter. Math mode is applied to all symbols by default - use `\mathrm{}` in cases where the upright letter notation is preferable (e.g., `\mathrm{SFR}`);
 - **\[optional\]** `unit`: the plotted parameter's unit of measurement. All units are converted to the LaTeX format using the Astropy's [`Quantity.to_string()` method](https://docs.astropy.org/en/stable/api/astropy.units.Quantity.html#astropy.units.Quantity.to_string). The list of units supported by Astropy and hence by Astrolabel can be found in the Astropy's official documentation [here](https://docs.astropy.org/en/stable/units/index.html). This list covers most (if not all) units used in astronomy. However, if you want to define new units, follow the instructions on [this page](https://docs.astropy.org/en/stable/units/combining_and_defining.html#defining-units);
-- **\[optional\]** `description`: the text description of the plotted parameter.
+- **\[optional\]** `description`: the text description of the plotted parameter;
+- **\[optional\]** `wrap`: if true, place the symbol in parentheses (default: false).
 
 **Note:** due to the specifics of YAML, it is highly recommended to use single quotes (`'`) when adding new labels or label formats to the label library.
 
@@ -93,7 +95,7 @@ In case no arguments are passed to the constructor, Astrolabel looks for the lab
 2. `$ASTROLABEL` - the best option for users who want to use the same library across different projects.
 3. The default library location (see below). Note that the default library will be overwritten each time you reinstall or update the package. 
 
-To check the location of the currently active library, call the `library_path()` method of the `LabelLibrary` object:
+The location of the current library is stored in the `library_path` attribute of the `LabelLibrary` object:
 
 ```python
 >>> ll.library_path  # output: PosixPath('/home/foo/.../bar/astrolabel.yml')
@@ -102,7 +104,7 @@ To check the location of the currently active library, call the `library_path()`
 
 ### The default library
 
-The Astrolabel package comes with a label library which includes two label formats (`linear` and `log`) and some labels commonly used for astronomy plots. The location of the default label library is stored in the `DEFAULT_LIBRARY_PATH` constant:
+The Astrolabel package comes with a label library which includes two label formats (`linear` and `log`) and some scripts and labels commonly used in astronomy plots. The location of the default label library is stored in the `DEFAULT_LIBRARY_PATH` constant:
 
 ```python
 >>> from astrolabel import DEFAULT_LIBRARY_PATH
