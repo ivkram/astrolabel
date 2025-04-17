@@ -133,8 +133,8 @@ def test_get_label_with_subs_and_sups(std_ll):
 def test_get_laebl_with_wrap(std_ll):
     assert std_ll.get_label('bd_obs') == r"$\left(\mathrm{H}\alpha/\mathrm{H}\beta\right)_{\mathrm{obs}}$"
 
-def test_get_label_with_empty_sub(std_ll):
-    assert std_ll.get_label("z_none") == "$z$"
+def test_get_label_with_empty_sub_sup(std_ll):
+    assert std_ll.get_label("z_None^None") == "$z$"
 
 def test_get_symbol(std_ll):
     assert std_ll.get_symbol("sfr") == r"$\mathrm{SFR}$"

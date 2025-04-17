@@ -22,7 +22,7 @@ scripts:
 
   esc: '\mathrm{esc}'  # as in "escape fraction"
 
-  none: ''
+  None: ''
 
 labels:
   ########## Physical properties of galaxies ##########
